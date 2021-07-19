@@ -5,10 +5,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.simpleroomdatabase.Room.DataBase
+import com.example.simpleroomdatabase.Room.Entity
 import com.example.simpleroomdatabase.databinding.ActivityMainBinding
 
-    class MainActivity : AppCompatActivity() {
+    class MainActivity : AppCompatActivity(){
     private lateinit var binding : ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,4 +33,4 @@ import com.example.simpleroomdatabase.databinding.ActivityMainBinding
             startActivity(Intent(this,TodoActivity::class.java))
         }
     }
-}
+    }

@@ -1,6 +1,8 @@
 package com.example.simpleroomdatabase
 
 import android.graphics.Color
+import android.text.Editable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +14,7 @@ import com.example.simpleroomdatabase.Room.DataBase
 import com.example.simpleroomdatabase.Room.Entity
 import org.w3c.dom.Text
 
-class TodoAdapter(private val todoList: ArrayList<Entity>,private val todoDataBase: DataBase?) : RecyclerView.Adapter<TodoAdapter.MyHolder>() {
+class TodoAdapter(private val todoList: ArrayList<Entity>,private val todoDataBase: DataBase?,val listener : RowClickListener) : RecyclerView.Adapter<TodoAdapter.MyHolder>() {
 
     private var selectedPosition = -1
 
@@ -22,15 +24,18 @@ class TodoAdapter(private val todoList: ArrayList<Entity>,private val todoDataBa
     }
 
     override fun onBindViewHolder(holder: TodoAdapter.MyHolder, position: Int) {
-        if (selectedPosition == position) holder.itemView.setBackgroundColor(Color.CYAN)
+        if (selectedPosition == position) {
+            holder.itemView.setBackgroundColor(Color.CYAN)
+            listener.onItemClikListener(todoList[position])
+        }
         else holder.itemView.setBackgroundColor(Color.TRANSPARENT)
 
         holder.title.text = todoList[position].title
 
+
         holder.todobutton.setOnClickListener {
             if (holder.todobutton.text.toString() == "High") holder.todobutton.setText("Low")
             else if (holder.todobutton.text.toString() == "Low") holder.todobutton.setText("High")
-
             notifyDataSetChanged()
         }
 
@@ -58,7 +63,6 @@ class TodoAdapter(private val todoList: ArrayList<Entity>,private val todoDataBa
 
     fun deleteAllItem() {
         selectedPosition = -1
-
         todoList.clear()
         notifyDataSetChanged()
     }
@@ -72,5 +76,9 @@ class TodoAdapter(private val todoList: ArrayList<Entity>,private val todoDataBa
     class MyHolder(view : View) : RecyclerView.ViewHolder(view){
         var title = view.findViewById<TextView>(R.id.todo_text)
         var todobutton = view.findViewById<Button>(R.id.low_high_button)
+        var titleedit = view.findViewById<EditText>(R.id.add_edit)
+    }
+    interface RowClickListener{
+        fun onItemClikListener(user: Entity)
     }
 }
