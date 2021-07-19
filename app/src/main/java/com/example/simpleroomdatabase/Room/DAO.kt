@@ -8,20 +8,15 @@ interface DAO {
     @Query("SELECT * FROM entity")
     fun getall() : List<Entity>
 
-    // Entity 를 선택해 title 인것을 찾아라
-    @Query("SELECT * FROM entity WHERE title LIKE :title")
-    fun findByTitle (title : String) : Entity
-
     @Insert
     fun insert(todo : Entity)
 
     @Delete
-    fun delete( todo: Entity)
+    fun delete(todo: Entity)
 
     @Query("DELETE FROM Entity")
     fun deleteAll()
 
     @Update
-    fun update (todo: Entity)
-
+    fun updater(todo: Entity)
 }
